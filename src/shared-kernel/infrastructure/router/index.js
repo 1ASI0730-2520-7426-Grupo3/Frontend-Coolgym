@@ -1,0 +1,47 @@
+import { createRouter, createWebHistory } from 'vue-router'
+
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes: [
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('../../../contexts/auth/presentation/pages/login-page.page.vue'),
+    },
+    {
+      path: '/',
+      name: 'home',
+      component: () => import('../../../contexts/public/presentation/pages/home-page.page.vue'),
+    },
+    {
+      path: '/machines',
+      name: 'machines',
+      component: () => import('../../../contexts/public/presentation/pages/machines-page.page.vue'),
+    },
+    {
+      path: '/rent',
+      name: 'rent',
+      component: () => import('../../../contexts/public/presentation/pages/rent-page.page.vue'),
+    },
+    {
+      path: '/contact',
+      name: 'contact',
+      component: () => import('../../../contexts/public/presentation/pages/contact-page.page.vue'),
+    },
+  ],
+})
+
+// Navigation guard to redirect to login if not authenticated
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true'
+
+  if (!isAuthenticated && to.name !== 'login') {
+    next({ name: 'login' })
+  } else if (isAuthenticated && to.name === 'login') {
+    next({ name: 'home' })
+  } else {
+    next()
+  }
+})
+
+export default router
