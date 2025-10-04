@@ -14,7 +14,6 @@
           />
           <div class="brand-content">
             <h1 class="brand-title">{{ $t('toolbar.brand.title') }}</h1>
-            <span class="brand-subtitle">{{ $t('toolbar.brand.subtitle') }}</span>
             <span class="brand-description">{{ $t('toolbar.brand.description') }}</span>
           </div>
         </div>
