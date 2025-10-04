@@ -19,6 +19,15 @@ export default {
       profile: 'Perfil de usuario',
     },
   },
+  maintenance: {
+    title: 'Mantenimiento',
+    form: {
+      selectEquipment: 'Seleccionar Equipo',
+      cost: 'Costo',
+      selectDate: 'Seleccionar Fecha',
+      request: 'Solicitar Mantenimiento',
+    },
+  },
   footer: {
     copyright: '© 2025 CoolGym. Todos los derechos reservados.',
     links: {

@@ -28,10 +28,15 @@ const router = createRouter({
       name: 'contact',
       component: () => import('../../../contexts/public/presentation/pages/contact-page.page.vue'),
     },
+    {
+      path: '/maintenance',
+      name: 'maintenance',
+      component: () => import('@/contexts/maintenance/pages/maintenance-page.vue'),
+
+    }
   ],
 })
 
-// Navigation guard to redirect to login if not authenticated
 router.beforeEach((to, from, next) => {
   const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true'
 
