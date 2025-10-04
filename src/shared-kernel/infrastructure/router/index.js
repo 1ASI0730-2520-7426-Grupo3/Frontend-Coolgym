@@ -14,6 +14,11 @@ const router = createRouter({
       component: () => import('../../../contexts/public/presentation/pages/home-page.page.vue'),
     },
     {
+      path: '/account-statement',
+      name: 'account-statement',
+      component: () => import('@/contexts/account-statement/pages/account-statement.page.vue'),
+    },
+    {
       path: '/machines',
       name: 'machines',
       component: () => import('../../../contexts/public/presentation/pages/machines-page.page.vue'),

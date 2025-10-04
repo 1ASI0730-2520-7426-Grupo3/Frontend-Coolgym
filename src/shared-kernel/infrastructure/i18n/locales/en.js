@@ -19,6 +19,14 @@ export default {
       profile: 'User profile',
     },
   },
+  accountStatement: {
+    title: 'Account Statement',
+    item: {
+      paid: 'Paid',
+      pending: 'Pending',
+      pay: 'Pay',
+    },
+  },
   footer: {
     copyright: '© 2025 CoolGym. All rights reserved.',
     links: {
