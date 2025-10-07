@@ -1,6 +1,3 @@
-/**
- * Summary: English (EN) locale translations
- */
 export default {
   toolbar: {
     brand: {
@@ -26,6 +23,8 @@ export default {
       cost: 'Cost',
       selectDate: 'Select Date',
       request: 'Request Maintenance',
+    },
+  },
   accountStatement: {
     title: 'Account Statement',
     item: {
@@ -42,4 +41,4 @@ export default {
       cookie: 'Cookie Policy',
     },
   },
-}
+};

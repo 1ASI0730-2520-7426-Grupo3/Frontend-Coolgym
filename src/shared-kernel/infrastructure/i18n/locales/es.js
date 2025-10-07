@@ -1,6 +1,3 @@
-/**
- * Summary: Spanish (ES) locale translations
- */
 export default {
   toolbar: {
     brand: {
@@ -26,6 +23,8 @@ export default {
       cost: 'Costo',
       selectDate: 'Seleccionar Fecha',
       request: 'Solicitar Mantenimiento',
+    },
+  },
   accountStatement: {
     title: 'Estado de Cuenta',
     item: {
@@ -42,4 +41,4 @@ export default {
       cookie: 'Política de cookies',
     },
   },
-}
+};

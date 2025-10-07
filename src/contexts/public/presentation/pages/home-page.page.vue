@@ -1,7 +1,14 @@
+<!-- src/contexts/public/presentation/pages/home-page.page.vue -->
 <template>
   <section class="grid">
     <!-- My machines -->
-    <div class="panel">
+    <div
+      class="panel panel--link"
+      role="button"
+      tabindex="0"
+      @click="goTo('machines')"
+      @keydown="onKey($event, 'machines')"
+    >
       <h2 class="panel__title">My machines</h2>
       <div class="cards">
         <MachineCard v-for="m in myMachines" :key="m.id" :img="m.img" :title="m.name" />
@@ -9,15 +16,34 @@
     </div>
 
     <!-- Rent machines -->
-    <div class="panel">
+    <div
+      class="panel panel--link"
+      role="button"
+      tabindex="0"
+      @click="goTo('rent')"
+      @keydown="onKey($event, 'rent')"
+    >
       <h2 class="panel__title">Rent machines</h2>
       <div class="cards">
-        <MachineCard v-for="m in rentMachines" :key="m.id" :img="m.img" :title="m.name" :subtitle="m.price" :isPrice="true" />
+        <MachineCard
+          v-for="m in rentMachines"
+          :key="m.id"
+          :img="m.img"
+          :title="m.name"
+          :subtitle="m.price"
+          :isPrice="true"
+        />
       </div>
     </div>
 
     <!-- Maintenance -->
-    <div class="panel">
+    <div
+      class="panel panel--link"
+      role="button"
+      tabindex="0"
+      @click="goTo('maintenance')"
+      @keydown="onKey($event, 'maintenance')"
+    >
       <h2 class="panel__title">Maintenance</h2>
       <ul class="list">
         <li class="list__item" v-for="i in maintenance" :key="i.id">
@@ -29,7 +55,13 @@
     </div>
 
     <!-- Account statement -->
-    <div class="panel">
+    <div
+      class="panel panel--link"
+      role="button"
+      tabindex="0"
+      @click="goTo('account-statement')"
+      @keydown="onKey($event, 'account-statement')"
+    >
       <h2 class="panel__title">Account statement</h2>
       <ul class="list">
         <li class="list__item" v-for="t in account" :key="t.id">
@@ -38,15 +70,25 @@
           <span class="badge" :class="t.status === 'Paid' ? 'badge--ok' : 'badge--warn'">{{ t.status }}</span>
         </li>
       </ul>
-      <p class="muted spacer">Here, the maintenance of your equipment will be displayed.</p>
+      <p class="muted spacer">Here you can view your pending and paid receipts.</p>
     </div>
   </section>
 </template>
 
 <script setup>
+import { onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import MachineCard from '@/shared-kernel/presentation/ui/components/machine-card.component.vue'
 import { http } from '@/shared-kernel/infrastructure/http'
-import { onMounted } from 'vue'
+
+const router = useRouter()
+const goTo = (name) => router.push({ name })
+const onKey = (e, name) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault()
+    goTo(name)
+  }
+}
 
 // MOCK: luego lo conectamos a /api/* con json-server
 const imgBike = '/assets/images/bike.png'
@@ -80,7 +122,6 @@ onMounted(async () => {
     console.error('Error al cargar /equipment:', err)
   }
 })
-
 </script>
 
 <style scoped>
@@ -96,6 +137,12 @@ onMounted(async () => {
 .badge--ok{background:#e9f8ee;color:var(--ok)}
 .badge--warn{background:#ffecec;color:var(--warn)}
 .muted{color:var(--muted)} .spacer{margin-top:14px}
+
+/* Clickable panels */
+.panel--link{cursor:pointer;transition:transform .08s ease, box-shadow .08s ease}
+.panel--link:hover{transform:translateY(-1px);box-shadow:0 10px 26px rgba(23,43,77,.12)}
+.panel--link:focus-visible{outline:3px solid #7aa6ff;outline-offset:3px}
+
 @media (max-width:980px){ .grid{grid-template-columns:1fr} .cards{grid-template-columns:1fr 1fr} }
 @media (max-width:640px){ .cards{grid-template-columns:1fr} }
 </style>
