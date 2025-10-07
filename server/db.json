@@ -16,9 +16,9 @@
       "companyName": "COOLPROV S.A.C.",
       "amount": 458.5,
       "currency": "PEN",
-      "status": "paid",
+      "status": "pending",
       "issuedAt": "2025-09-25",
-      "paidAt": "2025-10-04"
+      "paidAt": null
     },
     {
       "id": 3,

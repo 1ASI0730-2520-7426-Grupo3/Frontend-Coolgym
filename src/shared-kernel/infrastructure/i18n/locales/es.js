@@ -19,6 +19,13 @@ export default {
       profile: 'Perfil de usuario',
     },
   },
+  maintenance: {
+    title: 'Mantenimiento',
+    form: {
+      selectEquipment: 'Seleccionar Equipo',
+      cost: 'Costo',
+      selectDate: 'Seleccionar Fecha',
+      request: 'Solicitar Mantenimiento',
   accountStatement: {
     title: 'Estado de Cuenta',
     item: {
