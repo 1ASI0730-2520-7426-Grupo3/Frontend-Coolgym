@@ -26,6 +26,12 @@ export default {
       cost: 'Costo',
       selectDate: 'Seleccionar Fecha',
       request: 'Solicitar Mantenimiento',
+  accountStatement: {
+    title: 'Estado de Cuenta',
+    item: {
+      paid: 'Pagado',
+      pending: 'Pendiente',
+      pay: 'Pagar',
     },
   },
   footer: {

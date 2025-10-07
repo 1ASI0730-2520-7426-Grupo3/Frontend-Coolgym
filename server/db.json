@@ -19,6 +19,16 @@
       "status": "pending",
       "issuedAt": "2025-09-25",
       "paidAt": null
+    },
+    {
+      "id": 3,
+      "userId": 1,
+      "companyName": "COOLGYMPROV S.A.C.",
+      "amount": 5000,
+      "currency": "PEN",
+      "status": "paid",
+      "issuedAt": "2025-09-25",
+      "paidAt": "2025-10-04"
     }
   ],
   "clientPlans": [

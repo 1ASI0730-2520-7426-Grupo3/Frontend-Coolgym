@@ -26,6 +26,12 @@ export default {
       cost: 'Cost',
       selectDate: 'Select Date',
       request: 'Request Maintenance',
+  accountStatement: {
+    title: 'Account Statement',
+    item: {
+      paid: 'Paid',
+      pending: 'Pending',
+      pay: 'Pay',
     },
   },
   footer: {
