@@ -27,7 +27,7 @@ const isLoginPage = computed(() => route.name === 'login')
 body {
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
+  font-family: Arnial, sans-serif;
   color: #1f2937;
 }
 

@@ -17,9 +17,46 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes, scrollBehavior() { return { top: 0 } }
+  routes: [
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('../../../contexts/auth/presentation/pages/login-page.page.vue'),
+    },
+    {
+      path: '/',
+      name: 'home',
+      component: () => import('../../../contexts/public/presentation/pages/home-page.page.vue'),
+    },
+    {
+      path: '/account-statement',
+      name: 'account-statement',
+      component: () => import('@/contexts/account-statement/pages/account-statement.page.vue'),
+    },
+    {
+      path: '/machines',
+      name: 'machines',
+      component: () => import('../../../contexts/public/presentation/pages/machines-page.page.vue'),
+    },
+    {
+      path: '/rent',
+      name: 'rent',
+      component: () => import('../../../contexts/public/presentation/pages/rent-page.page.vue'),
+    },
+    {
+      path: '/contact',
+      name: 'contact',
+      component: () => import('../../../contexts/public/presentation/pages/contact-page.page.vue'),
+    },
+    {
+      path: '/maintenance',
+      name: 'maintenance',
+      component: () => import('@/contexts/maintenance/pages/maintenance-page.vue'),
+
+    }
+  ],
 })
 
-// Navigation guard to redirect to login if not authenticated
 router.beforeEach((to, from, next) => {
   const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true'
 
