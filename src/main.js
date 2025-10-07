@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import './app/global.css'
 
 import 'primeicons/primeicons.css'
 import { setupPrimeVue } from './shared-kernel/infrastructure/ui-framework/primevue'
@@ -11,5 +12,4 @@ const app = createApp(App)
 setupPrimeVue(app, 'aura')
 app.use(router)
 app.use(i18n)
-
 app.mount('#app')
