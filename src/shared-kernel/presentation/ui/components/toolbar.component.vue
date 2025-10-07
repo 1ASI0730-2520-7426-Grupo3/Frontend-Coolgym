@@ -33,7 +33,7 @@
             <a
               href="#"
               @click.prevent="handleNavigation('home')"
-              :class="['nav-link', { 'active': activeRoute === 'home' }]"
+              :class="['nav-link', { active: activeRoute === 'home' }]"
               :aria-label="$t('toolbar.nav.home')"
             >
               {{ $t('toolbar.nav.home') }}
@@ -41,7 +41,7 @@
             <a
               href="#"
               @click.prevent="handleNavigation('machines')"
-              :class="['nav-link', { 'active': activeRoute === 'machines' }]"
+              :class="['nav-link', { active: activeRoute === 'machines' }]"
               :aria-label="$t('toolbar.nav.myMachines')"
             >
               {{ $t('toolbar.nav.myMachines') }}
@@ -49,7 +49,7 @@
             <a
               href="#"
               @click.prevent="handleNavigation('rent')"
-              :class="['nav-link', { 'active': activeRoute === 'rent' }]"
+              :class="['nav-link', { active: activeRoute === 'rent' }]"
               :aria-label="$t('toolbar.nav.rent')"
             >
               {{ $t('toolbar.nav.rent') }}
@@ -57,7 +57,7 @@
             <a
               href="#"
               @click.prevent="handleNavigation('contact')"
-              :class="['nav-link', { 'active': activeRoute === 'contact' }]"
+              :class="['nav-link', { active: activeRoute === 'contact' }]"
               :aria-label="$t('toolbar.nav.contact')"
             >
               {{ $t('toolbar.nav.contact') }}
@@ -85,7 +85,7 @@
           <div class="language-selector">
             <span
               class="language-option"
-              :class="{ 'active': currentLanguage === 'en' }"
+              :class="{ active: currentLanguage === 'en' }"
               @click="setLanguage('en')"
               role="button"
               aria-label="Switch to English"
@@ -95,7 +95,7 @@
             <span class="language-separator">|</span>
             <span
               class="language-option"
-              :class="{ 'active': currentLanguage === 'es' }"
+              :class="{ active: currentLanguage === 'es' }"
               @click="setLanguage('es')"
               role="button"
               aria-label="Switch to Spanish"
@@ -112,28 +112,28 @@
       <a
         href="#"
         @click.prevent="handleNavigation('home')"
-        :class="['mobile-nav-link', { 'active': activeRoute === 'home' }]"
+        :class="['mobile-nav-link', { active: activeRoute === 'home' }]"
       >
         {{ $t('toolbar.nav.home') }}
       </a>
       <a
         href="#"
         @click.prevent="handleNavigation('machines')"
-        :class="['mobile-nav-link', { 'active': activeRoute === 'machines' }]"
+        :class="['mobile-nav-link', { active: activeRoute === 'machines' }]"
       >
         {{ $t('toolbar.nav.myMachines') }}
       </a>
       <a
         href="#"
         @click.prevent="handleNavigation('rent')"
-        :class="['mobile-nav-link', { 'active': activeRoute === 'rent' }]"
+        :class="['mobile-nav-link', { active: activeRoute === 'rent' }]"
       >
         {{ $t('toolbar.nav.rent') }}
       </a>
       <a
         href="#"
         @click.prevent="handleNavigation('contact')"
-        :class="['mobile-nav-link', { 'active': activeRoute === 'contact' }]"
+        :class="['mobile-nav-link', { active: activeRoute === 'contact' }]"
       >
         {{ $t('toolbar.nav.contact') }}
       </a>
