@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import PageNotFoundComponent from '@/public/pages/page-not-found.component.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -40,6 +41,7 @@ const router = createRouter({
 
     },
     {path: '/', name: 'default', redirect: {name: 'home'}},
+    {path: '/:pathMatch(.*)*', name: 'not-found', component: PageNotFoundComponent, meta: {title: 'Page not found'}},
   ],
 })
 
