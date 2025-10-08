@@ -1,6 +1,3 @@
-/**
- * Summary: English (EN) locale translations
- */
 export default {
   toolbar: {
     brand: {
@@ -19,6 +16,23 @@ export default {
       profile: 'User profile',
     },
   },
+  maintenance: {
+    title: 'Maintenance',
+    form: {
+      selectEquipment: 'Select Equipment',
+      cost: 'Cost',
+      selectDate: 'Select Date',
+      request: 'Request Maintenance',
+    },
+  },
+  accountStatement: {
+    title: 'Account Statement',
+    item: {
+      paid: 'Paid',
+      pending: 'Pending',
+      pay: 'Pay',
+    },
+  },
   footer: {
     copyright: '© 2025 CoolGym. All rights reserved.',
     links: {
@@ -27,4 +41,4 @@ export default {
       cookie: 'Cookie Policy',
     },
   },
-}
+};
