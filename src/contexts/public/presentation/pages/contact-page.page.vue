@@ -18,7 +18,7 @@
         <textarea v-model="form.message" id="message" rows="4" required></textarea>
       </div>
 
-      <Button type="submit" label="Send Message" icon="pi pi-send" />
+      <pv-button type="submit" label="Send Message" icon="pi pi-send" />
     </form>
 
     <p v-if="submitted" class="success">✅ Message sent successfully!</p>
@@ -31,7 +31,7 @@ import { reactive, ref } from 'vue'
 const form = reactive({
   name: '',
   email: '',
-  message: ''
+  message: '',
 })
 const submitted = ref(false)
 

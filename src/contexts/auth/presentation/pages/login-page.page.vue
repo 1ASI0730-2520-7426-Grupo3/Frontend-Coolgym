@@ -5,16 +5,10 @@
 <template>
   <div class="login-container">
     <div class="login-content">
-      <img
-        src="@/assets/CoolGymImage.png"
-        alt="CoolGym logo - Exercise bike"
-        class="login-logo"
-      />
+      <img src="@/assets/CoolGymImage.png" alt="CoolGym logo - Exercise bike" class="login-logo" />
       <h1 class="login-title">CoolGym</h1>
       <p class="login-subtitle">Intelligent management of fitness equipment</p>
-      <button class="login-button" @click="handleLogin">
-        Login
-      </button>
+      <button class="login-button" @click="handleLogin">Login</button>
     </div>
   </div>
 </template>

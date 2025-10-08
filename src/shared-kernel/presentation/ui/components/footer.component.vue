@@ -1,7 +1,4 @@
-<!--
-  Summary: Footer component for CoolGym application
-  Provides copyright information and legal links
--->
+
 <template>
   <footer class="footer-container">
     <div class="footer-divider"></div>
