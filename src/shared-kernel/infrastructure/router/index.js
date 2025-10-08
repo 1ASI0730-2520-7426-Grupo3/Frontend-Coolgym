@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import PageNotFoundComponent from '@/public/pages/page-not-found.component.vue'
 
 // Importaciones de páginas
 const HomePage = () => import('@/contexts/public/presentation/pages/home-page.page.vue')
