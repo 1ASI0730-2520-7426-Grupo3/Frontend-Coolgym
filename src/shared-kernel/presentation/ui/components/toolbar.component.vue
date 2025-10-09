@@ -1,7 +1,4 @@
-<!--
-  Summary: Main navigation toolbar component for CoolGym application
-  Provides branding, navigation menu, notifications, user profile, and language selection
--->
+
 <template>
   <div class="toolbar-wrapper">
     <pv-toolbar class="coolgym-toolbar">

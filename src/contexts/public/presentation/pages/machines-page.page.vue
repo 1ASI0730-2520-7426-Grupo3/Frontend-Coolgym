@@ -3,18 +3,15 @@
     <h2 class="panel__title">My Machines</h2>
 
     <div v-if="isLoading" class="loading-state">
-      <!-- Muestra un indicador mientras se cargan los datos -->
       <p>Cargando lista de equipos...</p>
     </div>
 
     <div v-else-if="error" class="error-state">
-      <!-- Muestra un mensaje de error si la carga falla -->
       <p class="text-red-500">Error al cargar las máquinas: {{ error.message }}</p>
       <button @click="fetchMyMachines" class="reload-button">Recargar</button>
     </div>
 
     <div v-else class="cards">
-      <!-- Itera sobre las máquinas obtenidas de forma asíncrona -->
       <MachineCard
         v-for="m in myMachines"
         :key="m.id"
@@ -39,32 +36,24 @@ import MachineCard from '@/shared-kernel/presentation/ui/components/machine-card
 
 const router = useRouter()
 
-// --- Estados Reactivos ---
 const myMachines = ref([])
 const isLoading = ref(true)
 const error = ref(null)
 
-// IDs de las máquinas que quieres mostrar (simulando una lista filtrada por el usuario)
 const machineIdsToShow = [1, 2, 3, 4]
 
-// --- Funciones de Lógica ---
 
-/**
- * Carga la lista de máquinas simulando una llamada HTTP GET.
- */
+
 const fetchMyMachines = async () => {
   isLoading.value = true
   error.value = null
   myMachines.value = []
 
   try {
-    // 1. Simula una llamada GET a la colección 'equipment'
     const response = await http.get('/equipment')
 
-    // **CORRECCIÓN CLAVE:** Extraer el array de datos de la propiedad 'data'
     const equipmentArray = response.data || [];
 
-    // 2. Filtra y mapea la respuesta
     const filteredMachines = equipmentArray
       .filter((e) => machineIdsToShow.includes(e.id))
       .map((e) => ({
@@ -84,9 +73,6 @@ const fetchMyMachines = async () => {
   }
 }
 
-/**
- * Función para manejar el clic y navegar al control de la máquina.
- */
 const goToControls = (machineId) => {
   console.log(`Navigating to controls for machine ID: ${machineId}`)
   router.push({
@@ -95,16 +81,16 @@ const goToControls = (machineId) => {
   })
 }
 
-// Carga las máquinas al montar el componente
+
 onMounted(() => {
   fetchMyMachines()
 })
 </script>
 
 <style scoped>
-/* Estilos existentes */
+
 .panel {
-  background: white; /* Usando blanco para visibilidad */
+  background: white;
   padding: 25px;
   border-radius: 14px;
   box-shadow: 0 6px 20px rgba(23, 43, 77, 0.08);
@@ -112,7 +98,7 @@ onMounted(() => {
 
 .panel__title {
   margin-bottom: 20px;
-  color: #3b82f6; /* Usando un color primario (azul) */
+  color: #3b82f6;
   font-size: 1.8rem;
   font-weight: 700;
   border-bottom: 2px solid #f3f4f6;
@@ -125,7 +111,6 @@ onMounted(() => {
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
-/* Estilos para estados de carga/error */
 .loading-state,
 .error-state,
 .no-machines-message {
