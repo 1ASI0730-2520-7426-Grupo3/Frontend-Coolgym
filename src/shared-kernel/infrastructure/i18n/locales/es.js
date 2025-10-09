@@ -41,4 +41,4 @@ export default {
       cookie: 'Política de cookies',
     },
   },
-};
+}

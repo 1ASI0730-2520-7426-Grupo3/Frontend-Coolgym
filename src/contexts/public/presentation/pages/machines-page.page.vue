@@ -42,8 +42,6 @@ const error = ref(null)
 
 const machineIdsToShow = [1, 2, 3, 4]
 
-
-
 const fetchMyMachines = async () => {
   isLoading.value = true
   error.value = null
@@ -52,7 +50,7 @@ const fetchMyMachines = async () => {
   try {
     const response = await http.get('/equipment')
 
-    const equipmentArray = response.data || [];
+    const equipmentArray = response.data || []
 
     const filteredMachines = equipmentArray
       .filter((e) => machineIdsToShow.includes(e.id))
@@ -60,7 +58,10 @@ const fetchMyMachines = async () => {
         id: e.id,
         name: e.name,
         // Asume que las imágenes están en el campo 'images'
-        img: e.images && e.images.length > 0 ? e.images[0] : 'https://placehold.co/400x300/4169e1/ffffff?text=No+Image',
+        img:
+          e.images && e.images.length > 0
+            ? e.images[0]
+            : 'https://placehold.co/400x300/4169e1/ffffff?text=No+Image',
         model: e.model,
       }))
 
@@ -81,14 +82,12 @@ const goToControls = (machineId) => {
   })
 }
 
-
 onMounted(() => {
   fetchMyMachines()
 })
 </script>
 
 <style scoped>
-
 .panel {
   background: white;
   padding: 25px;

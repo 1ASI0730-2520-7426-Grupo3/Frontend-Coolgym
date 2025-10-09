@@ -12,70 +12,69 @@
 
       <div class="field">
         <label>{{ $t('maintenance.form.cost') }}</label>
-        <input type="text" :value="costLabel" readonly>
+        <input type="text" :value="costLabel" readonly />
       </div>
 
       <div class="field">
         <label>{{ $t('maintenance.form.selectDate') }}</label>
-        <input type="date" v-model="dateStr">
+        <input type="date" v-model="dateStr" />
       </div>
 
-      <button class="btn" :disabled="!canSubmit" @click="submit">{{ $t('maintenance.form.request') }}</button>
+      <button class="btn" :disabled="!canSubmit" @click="submit">
+        {{ $t('maintenance.form.request') }}
+      </button>
     </div>
   </section>
 </template>
 
 <script setup>
-import { onMounted, ref, computed } from 'vue';
-import { MaintenanceApiService } from '../services/maintenance.api-service.js';
-import { toEquipmentOption } from '../model/equipment.model';
-import { newMaintenanceRequest } from '../model/maintenance-request.entity';
+import { onMounted, ref, computed } from 'vue'
+import { MaintenanceApiService } from '../services/maintenance.api-service.js'
+import { toEquipmentOption } from '../model/equipment.model'
+import { newMaintenanceRequest } from '../model/maintenance-request.entity'
 
-const api = new MaintenanceApiService();
-const userId = 1;
+const api = new MaintenanceApiService()
+const userId = 1
 
-const loading = ref(false);
-const equipments = ref([]);
-const pricing = ref(new Map());
-const options = computed(() => equipments.value.map(toEquipmentOption));
+const loading = ref(false)
+const equipments = ref([])
+const pricing = ref(new Map())
+const options = computed(() => equipments.value.map(toEquipmentOption))
 
-const selectedId = ref(null);
-const dateStr = ref(new Date().toISOString().slice(0, 10));
+const selectedId = ref(null)
+const dateStr = ref(new Date().toISOString().slice(0, 10))
 
-const currentCost = computed(() => pricing.value.get(Number(selectedId.value)) ?? 0);
-const costLabel = computed(() => `$${currentCost.value.toFixed(2)}`);
-const canSubmit = computed(() => !!selectedId.value && !!dateStr.value && currentCost.value > 0);
+const currentCost = computed(() => pricing.value.get(Number(selectedId.value)) ?? 0)
+const costLabel = computed(() => `$${currentCost.value.toFixed(2)}`)
+const canSubmit = computed(() => !!selectedId.value && !!dateStr.value && currentCost.value > 0)
 
 async function load() {
-  loading.value = true;
+  loading.value = true
   try {
-    const [eqs, priceMap] = await Promise.all([
-      api.getUserEquipments(userId),
-      api.getPricingMap()
-    ]);
-    equipments.value = eqs;
-    pricing.value = priceMap;
-    if (eqs.length) selectedId.value = eqs[0].id;
+    const [eqs, priceMap] = await Promise.all([api.getUserEquipments(userId), api.getPricingMap()])
+    equipments.value = eqs
+    pricing.value = priceMap
+    if (eqs.length) selectedId.value = eqs[0].id
   } finally {
-    loading.value = false;
+    loading.value = false
   }
 }
 
 async function submit() {
-  if (!canSubmit.value) return;
+  if (!canSubmit.value) return
   const payload = newMaintenanceRequest({
     userId,
     equipmentId: Number(selectedId.value),
     costUSD: currentCost.value,
     selectedDate: dateStr.value,
     type: 'corrective',
-    notes: ''
-  });
-  await api.createRequest(payload);
-  alert('Maintenance request created');
+    notes: '',
+  })
+  await api.createRequest(payload)
+  alert('Maintenance request created')
 }
 
-onMounted(load);
+onMounted(load)
 </script>
 
 <style scoped>
@@ -121,8 +120,8 @@ label {
 }
 
 select,
-input[type="text"],
-input[type="date"] {
+input[type='text'],
+input[type='date'] {
   height: 44px;
   border: 1px solid #d4d8dd;
   border-radius: 10px;
@@ -131,23 +130,25 @@ input[type="date"] {
   color: #222;
   font-size: 0.95rem;
   outline: none;
-  transition: border 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    border 0.2s ease,
+    box-shadow 0.2s ease;
 
   color-scheme: light;
 }
 
 select:focus,
-input[type="text"]:focus,
-input[type="date"]:focus {
+input[type='text']:focus,
+input[type='date']:focus {
   border-color: #1976d2;
   box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.15);
 }
 
-input[type="date"]::-webkit-calendar-picker-indicator {
+input[type='date']::-webkit-calendar-picker-indicator {
   opacity: 0;
 }
 
-input[type="date"] {
+input[type='date'] {
   -webkit-appearance: none;
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23444' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='18' rx='2' ry='2'/%3E%3Cline x1='16' y1='2' x2='16' y2='6'/%3E%3Cline x1='8' y1='2' x2='8' y2='6'/%3E%3Cline x1='3' y1='10' x2='21' y2='10'/%3E%3C/svg%3E");
@@ -168,7 +169,9 @@ input[type="date"] {
   letter-spacing: 0.2px;
   cursor: pointer;
   border: none;
-  transition: background 0.2s ease, transform 0.1s ease;
+  transition:
+    background 0.2s ease,
+    transform 0.1s ease;
 }
 
 .btn:hover:not(:disabled) {

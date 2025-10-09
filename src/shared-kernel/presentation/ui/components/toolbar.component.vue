@@ -1,4 +1,3 @@
-
 <template>
   <div class="toolbar-wrapper">
     <pv-toolbar class="coolgym-toolbar">

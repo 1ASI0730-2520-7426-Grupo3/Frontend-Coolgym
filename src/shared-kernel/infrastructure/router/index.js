@@ -9,9 +9,7 @@ const LoginPage = () => import('@/contexts/auth/presentation/pages/login-page.pa
 const MachineControls = () =>
   import('@/contexts/public/presentation/pages/machine-controls.page.vue')
 
-
 const routes = [
-
   { path: '/', name: 'home', component: HomePage, meta: { requiresAuth: true } },
   {
     path: '/home',
@@ -20,14 +18,24 @@ const routes = [
   },
 
   { path: '/machines', name: 'machines', component: MachinesPage, meta: { requiresAuth: true } },
-  { path: '/machines/:id', name: 'MachineControls', component: MachineControls, meta: { requiresAuth: true } },
+  {
+    path: '/machines/:id',
+    name: 'MachineControls',
+    component: MachineControls,
+    meta: { requiresAuth: true },
+  },
 
   { path: '/rent', name: 'rent', component: RentPage, meta: { requiresAuth: false } },
   { path: '/contact', name: 'contact', component: ContactPage, meta: { requiresAuth: false } },
 
   { path: '/login', name: 'login', component: LoginPage, meta: { requiresAuth: false } },
 
-  { path: '/:pathMatch(.*)*', name: 'not-found', component: PageNotFoundComponent, meta: { requiresAuth: false } },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'not-found',
+    component: PageNotFoundComponent,
+    meta: { requiresAuth: false },
+  },
 
   {
     path: '/maintenance',
@@ -44,7 +52,7 @@ const routes = [
 
   { path: '/:catchAll(.*)', redirect: { name: 'not-found' } },
 
-  {path: '/', name: 'default', redirect: {name: 'home'}},
+  { path: '/', name: 'default', redirect: { name: 'home' } },
 ]
 
 const router = createRouter({

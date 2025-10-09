@@ -2,7 +2,6 @@ import PrimeVue from 'primevue/config'
 import Aura from '@primeuix/themes/aura'
 import Lara from '@primeuix/themes/lara'
 
-// Only import components we actually use
 import Button from 'primevue/button'
 import Toolbar from 'primevue/toolbar'
 
@@ -24,7 +23,6 @@ export function setupPrimeVue(app, selectedTheme = 'aura') {
     },
   })
 
-  // Only register components we actually use
   app.component('pv-button', Button)
   app.component('pv-toolbar', Toolbar)
 }

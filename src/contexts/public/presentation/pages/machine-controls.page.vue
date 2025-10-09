@@ -1,10 +1,8 @@
 <template>
   <div class="machine-controls-container">
-    <!-- Título y Subtítulo -->
     <h1 class="main-title centered">Machine Controls</h1>
     <h2 class="machine-name">{{ machine.name || 'Cargando Máquina...' }}</h2>
 
-    <!-- Estado de Carga y Error -->
     <div v-if="isLoading" class="text-center p-4">
       <ProgressSpinner
         style="width: 50px; height: 50px"
@@ -100,7 +98,6 @@
           </p>
         </div>
 
-
         <div class="control-divider"></div>
 
         <div class="analytics-section">
@@ -108,18 +105,14 @@
           <p class="usage-text">Operating Temperature Trend (Past 12h)</p>
 
           <div class="chart-container">
-
             <svg viewBox="0 0 300 120" class="line-chart">
-
               <rect x="20" y="20" width="260" height="40" fill="#ccffcc" opacity="0.4" />
               <text x="285" y="30" font-size="8" fill="#555" text-anchor="end">80°C</text>
               <text x="285" y="60" font-size="8" fill="#555" text-anchor="end">60°C</text>
 
-
               <line x1="20" y1="10" x2="20" y2="100" stroke="#ccc" stroke-width="1" />
 
               <line x1="20" y1="100" x2="290" y2="100" stroke="#ccc" stroke-width="1" />
-
 
               <polyline
                 :points="getLinePoints(simulatedTempData)"
@@ -128,7 +121,6 @@
                 stroke-width="2"
                 class="temp-line"
               />
-
 
               <polygon
                 :points="getAreaPoints(simulatedTempData)"
@@ -156,15 +148,12 @@
             >View Full Analytics</pv-button
           >
         </div>
-
       </div>
-
 
       <div class="panel equipment-info-panel">
         <h3 class="panel__title">Equipment Information</h3>
 
         <div class="info-grid">
-
           <div class="info-item">
             <span class="info-label">Name:</span>
             <span class="info-value">{{ machine.name }}</span>
@@ -176,7 +165,6 @@
             }}</span>
           </div>
 
-
           <div class="info-item">
             <span class="info-label">Model:</span>
             <span class="info-value">{{ machine.model }}</span>
@@ -186,7 +174,6 @@
             <span class="info-value">{{ machine.manufacturer }}</span>
           </div>
 
-
           <div class="info-item">
             <span class="info-label">Serial:</span>
             <span class="info-value">{{ machine.serialNumber }}</span>
@@ -195,7 +182,6 @@
             <span class="info-label">Code:</span>
             <span class="info-value">{{ machine.code }}</span>
           </div>
-
 
           <div class="info-item">
             <span class="info-label">Installation Date:</span>
@@ -237,12 +223,9 @@
           </div>
         </div>
       </div>
-
     </div>
 
-
     <pv-button class="back-button-bottom" @click="router.back()" severity="primary">
-
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="18"
@@ -283,7 +266,6 @@ const currentSpeedLevel = ref(0)
 const currentSetLevel = ref(0)
 const simulatedTempData = ref([75, 78, 85, 82, 70, 65, 68])
 
-
 const fetchMachineData = async (id) => {
   isLoading.value = true
   error.value = null
@@ -319,13 +301,11 @@ const fetchMachineData = async (id) => {
   }
 }
 
-
 onMounted(() => {
   if (machineId.value) {
     fetchMachineData(machineId.value)
   }
 })
-
 
 watch(machineId, (newId) => {
   if (newId) {
@@ -333,10 +313,7 @@ watch(machineId, (newId) => {
   }
 })
 
-
-
 const getLinePoints = (data) => {
-
   const xMax = 290
   const xMin = 20
   const yMax = 100
@@ -378,7 +355,6 @@ const togglePower = () => {
 </script>
 
 <style scoped>
-
 :root {
   --primary: #4169e1;
   --primary-hover: #3558be;
@@ -430,7 +406,6 @@ const togglePower = () => {
   text-align: center;
 }
 
-
 .panel {
   background: var(--card);
   padding: 30px;
@@ -448,14 +423,12 @@ const togglePower = () => {
   border-bottom: 1px solid var(--border-light);
 }
 
-
 .content-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 30px;
   align-items: stretch;
 }
-
 
 .control-section {
   margin-bottom: 25px;
@@ -467,7 +440,6 @@ const togglePower = () => {
   color: var(--text-dark);
   margin-bottom: 10px;
 }
-
 
 .power-status-display {
   display: flex;
@@ -517,14 +489,12 @@ const togglePower = () => {
   box-shadow: 0 4px 10px rgba(231, 76, 60, 0.4);
 }
 
-
 .level-display-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
   margin-bottom: 10px;
 }
-
 
 .analytics-section {
   margin-top: 30px;
@@ -541,7 +511,6 @@ const togglePower = () => {
   margin-bottom: 15px;
 }
 
-
 .chart-container {
   padding: 10px 0;
   margin-bottom: 0;
@@ -555,7 +524,6 @@ const togglePower = () => {
   height: 140px;
   overflow: visible;
 }
-
 
 .flex {
   display: flex;
@@ -588,7 +556,6 @@ const togglePower = () => {
   background-color: var(--border-light);
   margin: 20px 0;
 }
-
 
 .info-grid {
   display: grid;
