@@ -322,6 +322,18 @@
       "notes": "",
       "assignedTechnicianId": null,
       "id": 3
+    },
+    {
+      "userId": 1,
+      "equipmentId": 4,
+      "type": "corrective",
+      "status": "pending",
+      "costUSD": 30,
+      "selectedDate": "2025-10-08",
+      "createdAt": "2025-10-09T02:58:55.213Z",
+      "notes": "",
+      "assignedTechnicianId": null,
+      "id": 4
     }
   ],
   "notifications": [

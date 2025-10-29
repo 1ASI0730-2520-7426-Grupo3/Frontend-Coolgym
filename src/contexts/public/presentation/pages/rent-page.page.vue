@@ -104,7 +104,7 @@ onMounted(() => {
 
 .panel__title {
   margin-bottom: 25px;
-  color: #3b82f6; /* Azul CoolGym */
+  color: #3b82f6;
   font-size: 2rem;
   font-weight: bold;
   border-bottom: 2px solid #f3f4f6;
@@ -114,7 +114,7 @@ onMounted(() => {
 .card-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 25px; /* Aumentamos el gap entre las unidades */
+  gap: 25px;
 }
 
 .machine-unit {

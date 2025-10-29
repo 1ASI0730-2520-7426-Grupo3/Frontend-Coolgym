@@ -57,7 +57,7 @@ const fetchMyMachines = async () => {
       .map((e) => ({
         id: e.id,
         name: e.name,
-        // Asume que las imágenes están en el campo 'images'
+
         img:
           e.images && e.images.length > 0
             ? e.images[0]
@@ -77,7 +77,7 @@ const fetchMyMachines = async () => {
 const goToControls = (machineId) => {
   console.log(`Navigating to controls for machine ID: ${machineId}`)
   router.push({
-    name: 'MachineControls', // Nombre de la ruta para MachineControlsPage
+    name: 'MachineControls',
     params: { id: machineId },
   })
 }

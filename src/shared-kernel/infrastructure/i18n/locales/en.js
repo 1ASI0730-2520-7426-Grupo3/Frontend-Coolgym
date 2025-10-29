@@ -41,4 +41,18 @@ export default {
       cookie: 'Cookie Policy',
     },
   },
+  provider: {
+    clients: {
+      title: 'My clients',
+      viewHistory: 'View client history',
+    },
+    technicians: {
+      title: 'Technicians',
+      viewList: 'View list of technicians',
+    },
+    workOrders: {
+      title: 'Work Orders',
+      viewOrders: 'View work orders',
+    },
+  },
 }

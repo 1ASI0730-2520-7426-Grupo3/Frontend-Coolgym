@@ -9,6 +9,9 @@ const LoginPage = () => import('@/contexts/auth/presentation/pages/login-page.pa
 const MachineControls = () =>
   import('@/contexts/public/presentation/pages/machine-controls.page.vue')
 
+const ProviderClientsPage = () =>
+  import('@/contexts/provider/clients/presentation/pages/provider-clients-orders.page.vue')
+
 const routes = [
   { path: '/', name: 'home', component: HomePage, meta: { requiresAuth: true } },
   {
@@ -47,6 +50,13 @@ const routes = [
     path: '/account-statement',
     name: 'account-statement',
     component: () => import('@/contexts/account-statement/pages/account-statement.page.vue'),
+    meta: { requiresAuth: true },
+  },
+
+  {
+    path: '/provider-clients',
+    name: 'provider-clients',
+    component: ProviderClientsPage,
     meta: { requiresAuth: true },
   },
 
