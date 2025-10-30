@@ -280,7 +280,7 @@ const fetchMachineData = async (id) => {
 
   try {
     // Usamos el endpoint para obtener una máquina por ID: /equipment/{id}
-    const response = await http.get(`/equipment/${id}`)
+    const response = await http.get(`/equipments/${id}`)
 
     machine.value = response.data || {}
 

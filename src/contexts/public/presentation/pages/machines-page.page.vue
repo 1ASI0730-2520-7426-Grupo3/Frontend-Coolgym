@@ -48,7 +48,7 @@ const fetchMyMachines = async () => {
   myMachines.value = []
 
   try {
-    const response = await http.get('/equipment')
+    const response = await http.get('/equipments')
 
     const equipmentArray = response.data || []
 
@@ -57,12 +57,7 @@ const fetchMyMachines = async () => {
       .map((e) => ({
         id: e.id,
         name: e.name,
-
-        img:
-          e.images && e.images.length > 0
-            ? e.images[0]
-            : 'https://placehold.co/400x300/4169e1/ffffff?text=No+Image',
-        model: e.model,
+        img: e.image ? e.image : 'https://placehold.co/400x300/4169e1/ffffff?text=No+Image',
       }))
 
     myMachines.value = filteredMachines

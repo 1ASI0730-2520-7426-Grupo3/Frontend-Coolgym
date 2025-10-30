@@ -9,9 +9,9 @@
     >
       <h2 class="panel__title">My machines</h2>
       <template v-if="isLoading.myMachines"><p class="muted">Cargando tus máquinas…</p></template>
-      <template v-else-if="error.myMachines"
-        ><p class="text-red-500">Error: {{ error.myMachines.message }}</p></template
-      >
+      <template v-else-if="error.myMachines">
+        <p class="text-red-500">Error: {{ error.myMachines.message }}</p>
+      </template>
       <div v-else class="cards">
         <MachineCard v-for="m in myMachines" :key="m.id" :img="m.img" :title="m.name" />
       </div>
@@ -28,12 +28,12 @@
       @keydown="onKey($event, 'rent')"
     >
       <h2 class="panel__title">Rent machines</h2>
-      <template v-if="isLoading.rentMachines"
-        ><p class="muted">Cargando máquinas de renta…</p></template
-      >
-      <template v-else-if="error.rentMachines"
-        ><p class="text-red-500">Error: {{ error.rentMachines.message }}</p></template
-      >
+      <template v-if="isLoading.rentMachines">
+        <p class="muted">Cargando máquinas de renta…</p>
+      </template>
+      <template v-else-if="error.rentMachines">
+        <p class="text-red-500">Error: {{ error.rentMachines.message }}</p>
+      </template>
       <div v-else class="cards">
         <MachineCard
           v-for="m in rentMachines"
@@ -58,9 +58,9 @@
     >
       <h2 class="panel__title">Maintenance</h2>
       <template v-if="isLoading.maintenance"><p class="muted">Cargando solicitudes…</p></template>
-      <template v-else-if="error.maintenance"
-        ><p class="text-red-500">Error: {{ error.maintenance.message }}</p></template
-      >
+      <template v-else-if="error.maintenance">
+        <p class="text-red-500">Error: {{ error.maintenance.message }}</p>
+      </template>
       <ul v-else-if="maintenance.length > 0" class="list">
         <li class="list__item" v-for="i in maintenance" :key="i.id">
           <span class="list__label">{{ i.equipmentName }}</span>
@@ -83,9 +83,9 @@
     >
       <h2 class="panel__title">Account statement</h2>
       <template v-if="isLoading.account"><p class="muted">Cargando extracto…</p></template>
-      <template v-else-if="error.account"
-        ><p class="text-red-500">Error: {{ error.account.message }}</p></template
-      >
+      <template v-else-if="error.account">
+        <p class="text-red-500">Error: {{ error.account.message }}</p>
+      </template>
       <ul v-else-if="account.length > 0" class="list">
         <li class="list__item" v-for="t in account" :key="t.id">
           <span class="list__label">{{ t.entity }}</span>
@@ -135,6 +135,7 @@ const formatCurrency = (amount, currency = 'PEN') => {
     minimumFractionDigits: 2,
   }).format(amount)
 }
+
 const normalizeStatus = (s) => {
   const v = String(s || '').toLowerCase()
   if (['paid', 'completed', 'resolved', 'done'].includes(v)) return 'Done'
@@ -147,52 +148,69 @@ const fetchEquipment = async () => {
   isLoading.value.rentMachines = true
   error.value.myMachines = null
   error.value.rentMachines = null
-  try {
-    const { data: equipmentDataRaw } = await http.get('/equipment')
-    const { data: rentalCatalog } = await http.get('/rentalCatalog')
+
+  // Promise.allSettled: Ejecuta ambas peticiones INDEPENDIENTEMENTE
+  const [equipmentResult, rentalResult] = await Promise.allSettled([
+    http.get('/equipments'),
+    http.get('/rentalCatalog'),
+  ])
+
+  if (equipmentResult.status === 'fulfilled') {
+    const equipmentDataRaw = equipmentResult.value.data
 
     const equipmentMap = new Map(
       equipmentDataRaw.map((e) => [
         e.id,
-        { id: e.id, name: e.name, img: e.images?.[0] || '/assets/images/placeholder.png' },
+        { id: e.id, name: e.name, img: e.image || '/assets/images/placeholder.png' },
       ]),
     )
 
     myMachines.value = myMachineIds.map((id) => equipmentMap.get(id)).filter(Boolean)
 
-    const rentalMap = new Map(rentalCatalog.map((r) => [r.id, r]))
-    rentMachines.value = rentOrder
-      .map((id) => {
-        const cat = rentalMap.get(id)
-        if (!cat) return null
-        return {
-          id,
-          name: cat.equipmentName,
-          img: cat.imageUrl || equipmentMap.get(id)?.img || '/assets/images/placeholder.png',
-          price: `${formatCurrency(cat.monthlyPriceUSD, cat.currency)} / month`,
-        }
-      })
-      .filter(Boolean)
-  } catch (err) {
-    error.value.myMachines = err
-    error.value.rentMachines = err
-  } finally {
-    isLoading.value.myMachines = false
-    isLoading.value.rentMachines = false
+    if (rentalResult.status === 'fulfilled') {
+      const rentalCatalog = rentalResult.value.data
+      const rentalMap = new Map(rentalCatalog.map((r) => [r.id, r]))
+
+      rentMachines.value = rentOrder
+        .map((id) => {
+          const cat = rentalMap.get(id)
+          if (!cat) return null
+          return {
+            id,
+            name: cat.equipmentName,
+            img: cat.imageUrl || equipmentMap.get(id)?.img || '/assets/images/placeholder.png',
+            price: `${formatCurrency(cat.monthlyPriceUSD, cat.currency)} / month`,
+          }
+        })
+        .filter(Boolean)
+    } else {
+      error.value.rentMachines = rentalResult.reason
+    }
+  } else {
+    error.value.myMachines = equipmentResult.reason
   }
+
+  isLoading.value.myMachines = false
+  isLoading.value.rentMachines = false
 }
 
 const fetchMaintenance = async () => {
   isLoading.value.maintenance = true
   error.value.maintenance = null
   maintenance.value = []
-  try {
-    const [{ data: requests }, { data: equipment }] = await Promise.all([
-      http.get('/maintenanceRequests'),
-      http.get('/equipment'),
-    ])
+
+  const [requestsResult, equipmentResult] = await Promise.allSettled([
+    http.get('/maintenanceRequests'),
+    http.get('/equipments'),
+  ])
+
+  if (requestsResult.status === 'fulfilled' && equipmentResult.status === 'fulfilled') {
+    const requests = requestsResult.value.data
+    const equipment = equipmentResult.value.data
+
     const equipmentMap = new Map(equipment.map((e) => [e.id, e]))
     const consolidated = new Map()
+
     requests.forEach((req) => {
       const equip = equipmentMap.get(req.equipmentId)
       if (equip && !consolidated.has(req.equipmentId)) {
@@ -203,6 +221,7 @@ const fetchMaintenance = async () => {
         })
       }
     })
+
     equipment
       .filter((e) => e.status === 'pending_maintenance')
       .forEach((e) => {
@@ -212,20 +231,29 @@ const fetchMaintenance = async () => {
           status: normalizeStatus(e.status),
         })
       })
+
     maintenance.value = Array.from(consolidated.values())
-  } catch (err) {
-    error.value.maintenance = err
-  } finally {
-    isLoading.value.maintenance = false
+  } else {
+    // Al menos una falló
+    if (requestsResult.status === 'rejected') {
+      error.value.maintenance = requestsResult.reason
+    } else {
+      error.value.maintenance = equipmentResult.reason
+    }
   }
+
+  isLoading.value.maintenance = false
 }
 
 const fetchAccount = async () => {
   isLoading.value.account = true
   error.value.account = null
   account.value = []
-  try {
-    const { data: invoices } = await http.get('/billingInvoices')
+
+  const [invoicesResult] = await Promise.allSettled([http.get('/billingInvoices')])
+
+  if (invoicesResult.status === 'fulfilled') {
+    const invoices = invoicesResult.value.data
     account.value = invoices
       .filter((t) => t.userId === USER_ID)
       .map((t) => ({
@@ -234,11 +262,11 @@ const fetchAccount = async () => {
         amount: formatCurrency(t.amount, t.currency),
         status: normalizeStatus(t.status),
       }))
-  } catch (err) {
-    error.value.account = err
-  } finally {
-    isLoading.value.account = false
+  } else {
+    error.value.account = invoicesResult.reason
   }
+
+  isLoading.value.account = false
 }
 
 onMounted(() => {
