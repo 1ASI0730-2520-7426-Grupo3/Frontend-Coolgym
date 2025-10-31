@@ -32,13 +32,13 @@ const routes = [
   {
     path: '/maintenance',
     name: 'maintenance',
-    component: () => import('@/contexts/maintenance/pages/maintenance-page.vue'),
+    component: () => import('@/contexts/maintenance/presentation/pages/maintenance-page.vue'),
     meta: { requiresAuth: true },
   },
   {
     path: '/account-statement',
     name: 'account-statement',
-    component: () => import('@/contexts/account-statement/pages/account-statement.page.vue'),
+    component: () => import('@/contexts/account-statement/presentation/pages/account-statement.page.vue'),
     meta: { requiresAuth: true },
   },
 

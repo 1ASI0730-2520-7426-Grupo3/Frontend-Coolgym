@@ -14,8 +14,8 @@
 
 <script setup>
 import { ref } from 'vue';
-import { formatCurrencyPEN, isPaid } from '../model/invoice.entity';
-import { AccountStatementApiService } from '../services/account-statement.api-service';
+import { formatCurrencyPEN, isPaid } from '../../Domain/invoice.entity.js';
+import { AccountStatementApiService } from '../../infrastructure/account-statement.api-service.js';
 
 const props = defineProps({ invoice: { type: Object, required: true } });
 const emit  = defineEmits(['changed']);

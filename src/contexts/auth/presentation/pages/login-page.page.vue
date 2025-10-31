@@ -1,7 +1,4 @@
-<!--
-  Summary: Login page for CoolGym application
-  Displays a centered login button that redirects to home page
--->
+
 <template>
   <div class="login-container">
     <div class="login-content">
