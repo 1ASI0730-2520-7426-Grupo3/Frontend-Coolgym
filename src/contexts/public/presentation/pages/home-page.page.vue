@@ -1,4 +1,4 @@
-<!-- src/contexts/public/presentation/pages/home-page.page.vue -->
+
 <template>
   <section class="grid">
     <div
@@ -120,7 +120,7 @@ const fetchEquipment = async () => {
   error.value.myMachines = null
   error.value.rentMachines = null
   try {
-    const { data: equipmentDataRaw } = await http.get('/equipment')
+    const { data: equipmentDataRaw } = await http.get('/equipments')
     const { data: rentalCatalog } = await http.get('/rentalCatalog')
 
     const equipmentMap = new Map(
@@ -161,7 +161,7 @@ const fetchMaintenance = async () => {
   try {
     const [{ data: requests }, { data: equipment }] = await Promise.all([
       http.get('/maintenanceRequests'),
-      http.get('/equipment'),
+      http.get('/equipments'),
     ])
     const equipmentMap = new Map(equipment.map((e) => [e.id, e]))
     const consolidated = new Map()

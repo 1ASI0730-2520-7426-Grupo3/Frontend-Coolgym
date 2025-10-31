@@ -18,7 +18,7 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import InvoiceItem from '../components/invoice-item.vue';
-import { AccountStatementApiService } from '../services/account-statement.api-service';
+import { AccountStatementApiService } from '../../infrastructure/account-statement.api-service.js';
 
 const api = new AccountStatementApiService();
 const invoices = ref([]);

@@ -27,9 +27,9 @@
 
 <script setup>
 import { onMounted, ref, computed } from 'vue';
-import { MaintenanceApiService } from '../services/maintenance.api-service.js';
-import { toEquipmentOption } from '../model/equipment.model';
-import { newMaintenanceRequest } from '../model/maintenance-request.entity';
+import { MaintenanceApiService } from '../../infrastructure/maintenance.api-service.js';
+import { toEquipmentOption } from '../../Domain/equipment.model.js';
+import { newMaintenanceRequest } from '../../Domain/maintenance-request.entity';
 
 const api = new MaintenanceApiService();
 const userId = 1;
